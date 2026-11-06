@@ -907,6 +907,10 @@ a.lk{color:var(--bordo2);font-weight:700;word-break:break-word}
 #stage.pt .welcome .chrome{font-size:40px!important}
 #stage.pt .sx.holo .mega.chrome{font-size:36px!important}
 #stage.pt .sx.holo .finale .ln.chrome{font-size:24px!important}
+#stage.pt .qbody{overflow-x:hidden}
+#stage.pt .qbody p{max-width:100%!important}
+#stage.pt .qnav{flex-wrap:wrap;gap:10px}
+#stage.pt .qnav .gbtn{max-width:100%;white-space:normal}
 
 </style>
   <div class="scr" id="coverScr">
@@ -1554,7 +1558,7 @@ function finish(){qi=Q.length;answered=false;hud();document.getElementById('xpFi
  <div class="resmsg chrome">${M[0]}</div><p style="font-size:19px;font-weight:600;max-width:640px;margin:0 auto">${M[1]}</p>
  <div class="qnav"><button class="gbtn big" onclick="restart()">↺ REFAZER O TESTE</button><button class="gbtn big cy" onclick="backMag()">VOLTAR À REVISTA</button></div>`;
  confetti();[523,659,784,1046].forEach((f,i)=>beep(f,.15,'square',i*.12))}
-function backMag(){closeQuiz();if(mode==='end')hideEnd();if(mode==='desk')openSec(0)}
+function backMag(){closeQuiz();if(mode==='end')hideEnd();if(mode==='desk')openSec(13)}
 function jump(id){const e=document.getElementById(id),sx=e&&e.closest('.sx');if(!sx)return;let t=0,n=e;while(n&&n!==sx){t+=n.offsetTop;n=n.offsetParent}sx.scrollTo({top:t-16,behavior:'smooth'})}
 /* ---------- foi publicado mesmo? ---------- */
 function vfA(b,a){const c=b.closest('.vf');if(c.classList.contains('done'))return;const ok=(+c.dataset.a)===a;c.classList.add('done',ok?'hit':'miss');c.querySelector('.you').textContent=ok?'✔ você acertou!':'✖ não foi dessa vez';ok?(beep(660,.08),beep(990,.12,'square',.08)):beep(220,.2,'sawtooth');vfUpd(true)}
