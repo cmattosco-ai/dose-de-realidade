@@ -451,6 +451,7 @@ body{display:flex;align-items:center;justify-content:center;font-family:Montserr
   <!-- ===================== CAPA ===================== -->
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+html,body{-webkit-text-size-adjust:100%!important;-moz-text-size-adjust:100%!important;text-size-adjust:100%!important}
 /* ================= V3 · edição completa ================= */
 .sx.rd{display:block;overflow-y:auto;overflow-x:hidden;padding:44px 64px 80px;scroll-behavior:smooth}
 .sx.rd::-webkit-scrollbar{width:14px}.sx.rd::-webkit-scrollbar-track{background:var(--rose-cl)}
@@ -911,6 +912,7 @@ a.lk{color:var(--bordo2);font-weight:700;word-break:break-word}
 #stage.pt .qbody p{max-width:100%!important}
 #stage.pt .qnav{flex-wrap:wrap;gap:10px}
 #stage.pt .qnav .gbtn{max-width:100%;white-space:normal}
+#stage.pt .hintc{animation:none;opacity:.7;transform:none}
 
 </style>
   <div class="scr" id="coverScr">
@@ -1565,6 +1567,20 @@ function vfA(b,a){const c=b.closest('.vf');if(c.classList.contains('done'))retur
 function vfUpd(act){const c=[...body.querySelectorAll('.vf')];if(!c.length)return;const d=c.filter(x=>x.classList.contains('done')).length,h=c.filter(x=>x.classList.contains('hit')).length;const el=document.getElementById('vfc');if(el)el.textContent=d+'/'+c.length+' cartas abertas · '+h+(h===1?' acerto':' acertos');
  if(act&&d===c.length){const f=document.getElementById('vfend');f.classList.add('open');setTimeout(()=>jump('vfend'),700);confetti()}}
 function confetti(){const c=['✦','★','♥','✧','●'],col=['#ff4fa3','#b9a6ff','#8ef0ff','#ffb800','#fff','#d4ff5c'];for(let i=0;i<100;i++){const s=document.createElement('span');s.className='conf';s.textContent=c[i%c.length];s.style.left=Math.random()*stage.offsetWidth+'px';s.style.color=col[i%col.length];s.style.fontSize=(14+Math.random()*20)+'px';s.style.animationDuration=(2.5+Math.random()*2.5)+'s';s.style.animationDelay=(Math.random()*.8)+'s';stage.appendChild(s);setTimeout(()=>s.remove(),6000)}}
+</script>
+<script>
+/* garante que nada da capa seja cortado, mesmo se o celular ampliar as fontes:
+   reduz o tamanho das letras (sem estreitar as caixas) até caber */
+function shrinkFit(el,maxH){if(!el)return;const t=[...el.querySelectorAll('*')].concat(el);
+ t.forEach(n=>{if(n.dataset.fs){n.style.fontSize=n.dataset.fs}});
+ let k=0;while(el.scrollHeight>maxH&&k<14){k++;t.forEach(n=>{const f=parseFloat(getComputedStyle(n).fontSize);if(!n.dataset.fs)n.dataset.fs=n.style.fontSize||'';n.style.fontSize=(f*0.93).toFixed(2)+'px'})}}
+function fitCover(){const c=document.querySelector('.fc.cover');if(!c)return;if(!stage.classList.contains('pt')){c.querySelectorAll('[data-fs]').forEach(n=>{n.style.fontSize=n.dataset.fs;delete n.dataset.fs});return}const H=c.clientHeight;
+ const col=c.querySelector('.c4-col');if(col)shrinkFit(col,H-col.offsetTop-12);
+ shrinkFit(c.querySelector('.c4-sub'),150);
+ shrinkFit(c.querySelector('.c4-heart .tx'),100);
+ shrinkFit(c.querySelector('.c4-badge'),96);
+ shrinkFit(c.querySelector('.c4-it')&&null,0)}
+addEventListener('load',fitCover);addEventListener('resize',fitCover);document.fonts&&document.fonts.ready.then(fitCover);setTimeout(fitCover,1500);
 </script>
 </body>
 </html>
